@@ -53,16 +53,21 @@
 
 
 							<div class="span6 well">
+
 								<div ng-repeat="marker in timeMarkers">
-									<span class=label id="marker-{{timeMarkers.indexOf(marker)}}">{{marker.toFixed(2)}}</span> marker-{{timeMarkers.indexOf(marker)}}
-										<a href="#" class="btn" id="record-{{timeMarkers.indexOf(marker)}}">Record</a>
-										<a href="#" class="btn" id="stop-{{timeMarkers.indexOf(marker)}}"><i class="icon-stop"></i> Stop</a>
+									<span class=label id="marker-{{marker.id}}">{{marker.time.toFixed(2)}}</span> marker-{{marker.id}}
+									<div class="btn-group">
+										<button class="btn btn-small btn-danger" id="record-{{marker.id}}" data-loading-text="Recording..."><i class="icon-play-circle"></i> Record</button>
+										<button class="btn btn-small btn-primary" id="stop-{{marker.id}}"><i class="icon-stop"></i> Stop</button>
+										<button class="btn btn-small btn-primary" id="save-{{marker.id}}"><i class="icon-file"></i> Save</button>
+									</div>
 									<hr/>
 								</div>
 							</div>
 						</div>
-					</div>
 
+					</div>
+					<button class="btn btn-xlarge btn-success">Finish Voice Over</button>
 				</div>
 
 
@@ -73,6 +78,7 @@
 				<script>window.jQuery || document.write('<script src="js/libs/jquery-1.7.1.min.js"><\/script>')</script>
 
 				<!-- scripts concatenated and minified via build script -->
+				<script src="js/libs/jRecorder.js"></script>
 				<script src="js/plugins.js"></script>
 				<script src="js/script.js"></script>
 				<!-- end scripts -->

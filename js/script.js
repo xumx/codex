@@ -1,22 +1,70 @@
 //Parse.initialize("ABYja2SjqXUsZsZFAojcPaaLlzGH48Uc1Lqvf2Fh", "C10LCWNl7ERIyIGfhHJ4sWVEkKclgfP1Sq2LQfWu");
-
 var player;
 
+//Document Ready
+$(function() {
+
+	$.jRecorder();
+
+});
+
+
+
+//Defining Marker Object
+function Marker(id) {
+	this.id = id;
+	this.time = player.getCurrentTime();
+
+	this.init = function() {
+		console.log(id);
+
+		//Assign Controlling Buttons
+		$('#record-' + id).click(function() {
+			$(this).button('loading');
+			$.jRecorder.record(30); //record up to 30 sec and stops automatically
+		});
+
+		$('#stop-' + id).click(function() {
+			$(this).prev().button('reset');
+			$.jRecorder.stop();
+		});
+
+		$('#save-' + id).click(function() {
+			alert('Saving is not done yet');
+			$.jRecorder.sendData();
+		});
+
+	};
+}
+
+// Video Control
 var videoController = function($scope) {
 		$scope.timeMarkers = [];
 
 		$scope.init = function() {
+			var id = 0;
 
-			$(document).bind('keypress','space', function() {
-				$scope.timeMarkers.push(player.getCurrentTime());
-			});
+			function generateId() {
+				return id++;
+			}
 
-			$('#mark').click(function () {
-				$scope.timeMarkers.push(player.getCurrentTime());
-			});
+			function newMarker() {
+				m = new Marker(generateId());
+				$scope.timeMarkers.push(m);
+				$scope.$digest();
+				m.init();
+			}
+
+			function deleteMarker(event) {
+
+			}
+
+			$(document).bind('keypress', 'space', newMarker);
+			$('#mark').click(newMarker);
+			//$('#deleteMarker').click(deleteMarker);
 
 			setInterval(function() {
-				$scope.videotime = player.getCurrentTime().toFixed(2);
+				$scope.videotime = Math.floor(player.getCurrentTime().toFixed(0)/60) + ":" + player.getCurrentTime().toFixed(0)%60;
 				$scope.$digest();
 			}, 1000);
 		};
@@ -44,6 +92,7 @@ function onYouTubePlayerReady(playerId) {
 	});
 
 }
+
 
 
 $('#submit').click(function() {

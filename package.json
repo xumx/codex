@@ -1,0 +1,12 @@
+{
+  "dependencies": {
+    "express": "~3.0.0rc1",
+    "youtube-dl": "~1.2.4"
+  },
+  "name": "Gold Glitters",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node-dev server.js"
+  },
+  "version": "0.0.1"
+}

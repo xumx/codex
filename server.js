@@ -2,7 +2,7 @@ var express = require('express');
 var app = express.createServer();
 
 //Serving Static files
-app.use(express.static('/public'));
+app.use(express.static('public/'));
 app.listen(3333); //Remember to change port when deploying on c9 and Azure
 
 //For writing RESTful APIs
